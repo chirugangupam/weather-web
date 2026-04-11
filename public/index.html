@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Current weather by city search or coordinates. Powered by Open-Meteo and a small Node.js API."
+  />
+  <title>Weather</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <nav class="site-nav" aria-label="Site">
+      <a href="/" aria-current="page">Weather</a>
+      <span class="site-nav-sep" aria-hidden="true">·</span>
+      <a href="/about.html">How it works</a>
+    </nav>
+
+    <header class="header">
+      <h1>Weather</h1>
+      <p class="tagline">Search a place or use coordinates</p>
+    </header>
+
+    <section class="panel search-panel" aria-label="Search">
+      <form id="search-form" class="row" autocomplete="off">
+        <input
+          type="search"
+          id="city"
+          name="city"
+          placeholder="City or place (e.g. Tokyo)"
+          aria-label="City or place"
+        />
+        <button type="submit">Search</button>
+      </form>
+      <ul id="suggestions" class="suggestions hidden" role="listbox" aria-label="Places"></ul>
+    </section>
+
+    <section class="panel coords-panel" aria-label="Coordinates">
+      <form id="coords-form" class="grid-coords">
+        <label>
+          Latitude
+          <input type="text" id="latitude" inputmode="decimal" placeholder="-90 to 90" />
+        </label>
+        <label>
+          Longitude
+          <input type="text" id="longitude" inputmode="decimal" placeholder="-180 to 180" />
+        </label>
+        <button type="submit" class="btn-secondary">Get weather</button>
+      </form>
+    </section>
+
+    <p id="error" class="error hidden" role="alert"></p>
+
+    <section id="card" class="weather-card hidden" aria-live="polite">
+      <div class="weather-main">
+        <h2 id="place-name" class="place-name"></h2>
+        <div class="temp-block">
+          <span id="temp" class="temp">—</span>
+          <span class="unit">°C</span>
+        </div>
+        <p id="condition" class="condition">—</p>
+        <p id="feels" class="meta">Feels like —°C</p>
+      </div>
+      <dl class="details">
+        <div><dt>Humidity</dt><dd id="humidity">—</dd></div>
+        <div><dt>Wind</dt><dd id="wind">—</dd></div>
+        <div><dt>Precipitation</dt><dd id="precip">—</dd></div>
+        <div><dt>Pressure</dt><dd id="pressure">—</dd></div>
+        <div><dt>Local time</dt><dd id="localtime">—</dd></div>
+        <div><dt>Coordinates</dt><dd id="coords-label">—</dd></div>
+      </dl>
+    </section>
+  </div>
+  <script src="app.js" type="module"></script>
+</body>
+</html>

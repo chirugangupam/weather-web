@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="How this weather site works: Node.js API, Open-Meteo forecast, geocoding, and place names."
+  />
+  <title>How this weather site works</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app app-prose">
+    <nav class="site-nav" aria-label="Site">
+      <a href="/">Weather</a>
+      <span class="site-nav-sep" aria-hidden="true">·</span>
+      <a href="/about.html" aria-current="page">How it works</a>
+    </nav>
+
+    <header class="header">
+      <h1>How this weather website works</h1>
+      <p class="tagline">Architecture and data sources</p>
+    </header>
+
+    <article class="prose panel">
+      <h2>What you see</h2>
+      <p>
+        The <strong>Weather</strong> page lets you find conditions by typing a place name or by entering
+        latitude and longitude. The dashboard shows the place name, temperature, sky condition text,
+        “feels like” temperature, humidity, wind, precipitation, pressure, local time, and coordinates.
+      </p>
+
+      <h2>How it is built</h2>
+      <p>
+        This is a real website served over HTTP: a <strong>Node.js</strong> server
+        (<code>server.js</code>) uses <strong>Express</strong> to:
+      </p>
+      <ul>
+        <li>Host the pages and scripts in the <code>public</code> folder.</li>
+        <li>Expose JSON <strong>API routes</strong> your browser calls with <code>fetch</code>.</li>
+      </ul>
+      <p>
+        The browser UI is plain HTML, CSS, and JavaScript (<code>index.html</code>,
+        <code>styles.css</code>, <code>app.js</code>)—no build step required. Start the site with
+        <code>npm start</code> or <code>npm run dev</code>, then open the URL shown in the terminal
+        (by default <code>http://localhost:3000</code>).
+      </p>
+
+      <h2>API routes and external services</h2>
+      <dl class="api-list">
+        <dt><code>GET /api/search?q=…</code></dt>
+        <dd>
+          Forwards your query to <strong>Open-Meteo’s geocoding API</strong> and returns matching places
+          with names and coordinates so you can pick a city or run a search.
+        </dd>
+        <dt><code>GET /api/weather?lat=…&amp;lon=…</code></dt>
+        <dd>
+          Loads <strong>current weather</strong> from the <strong>Open-Meteo forecast API</strong>
+          (temperature, humidity, wind, WMO weather code mapped to a short description, etc.). No API key
+          is required for this provider.
+        </dd>
+        <dt><code>GET /api/reverse?lat=…&amp;lon=…</code></dt>
+        <dd>
+          When you only enter coordinates, the server asks <strong>OpenStreetMap Nominatim</strong> for a
+          human-readable place label. Search-by-name flows skip this because the label is already known.
+        </dd>
+      </dl>
+
+      <h2>Privacy and limits</h2>
+      <p>
+        Your searches go through your own server, not directly from the browser to every provider, which
+        keeps the integration simple. Third-party services may log requests; Nominatim in particular asks
+        for fair use—this demo is suitable for personal or light testing, not heavy automated traffic.
+      </p>
+
+      <p class="back-link">
+        <a href="/">← Back to Weather</a>
+      </p>
+    </article>
+  </div>
+</body>
+</html>
